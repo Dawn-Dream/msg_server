@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import uvicorn
+import json
 
 app = FastAPI()
 list = []
@@ -24,7 +25,8 @@ async def upMsg(item: Item):
 @app.get("/getMsg")
 async def get_msg():
     if list.__len__() != 0:
-        return {"message": "success", "data": list.pop(0)}
+        data = {"message": "success", "data": list.pop(0)}
+        return json.dumps(data)
     else:
         return {"message": "No message in the list"}
 
